@@ -12,7 +12,9 @@
             {% if mensaje == "Incorrecto" %}
                 <p>El título correcto era: {{ titulo_correcto }}</p>
             {% endif %}
-            <a href="/">Volver a jugar</a>
+            <form action="/" method="GET">
+                <button type="submit" class="btn">Volver a jugar</button>
+            </form>
         </div>
         <div class="footer">
             &copy; 2023 - <a href="https://github.com/MrDoiman">MrDoiman</a>

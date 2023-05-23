@@ -4,6 +4,7 @@ import random
 app = Flask(__name__)
 
 romances = []
+probabilidades = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.2, 0.2 ]  # Probabilidades relativas de cada romance
 
 def cargar_romances():
     with open("romances.txt", "r") as archivo:
@@ -29,7 +30,16 @@ def jugar():
             if not romances:
                 return render_template("fin_juego.html")
 
-        indice_romance = random.randint(0, len(romances) - 1)
+        total_probabilidades = sum(probabilidades)
+        numero_aleatorio = random.uniform(0, total_probabilidades)
+        acumulador = 0
+        indice_romance = 0
+        for i, romance in enumerate(romances):
+            acumulador += probabilidades[i]
+            if numero_aleatorio <= acumulador:
+                indice_romance = i
+                break
+
         romance = romances[indice_romance]
         fragmentos = romance["fragmentos"]
         if len(fragmentos) <= 5:
